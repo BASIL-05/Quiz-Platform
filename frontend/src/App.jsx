@@ -1,13 +1,13 @@
-import { Button } from "@material-tailwind/react";
-import './App.css'
+
+import "./App.css";
+import Login from "./Components/Authentication/Login";
 
 function App() {
   return (
-    <>
-      <h1>Demo</h1>
-      <Button>Hi</Button>
-    </>
-  )
+    <div>
+      <Login />
+    </div>
+  );
 }
 
-export default App
+export default App;
