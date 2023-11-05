@@ -5,16 +5,15 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 import backgroundImage from "./login_background.jpeg";
 const Login = () => {
-  // Import the image
-
   const divStyle = {
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
   };
-  
+
   return (
     <div style={divStyle} className="flex justify-center items-center h-screen">
       <Card className="p-3 shadow-lg shadow-blue-500 opacity-80">
@@ -26,33 +25,32 @@ const Login = () => {
             <Input size="lg" type="email" label="Email" color="blue" />
             <Input color="blue" type="password" size="lg" label="Password" />
           </div>
-          <Checkbox
-            color="blue"
-            label={
-              <Typography
-                variant="small"
-                color="gray"
-                className="flex items-center font-normal"
-              >
-                I agree the
-                <a
-                  href="#"
-                  className="font-medium transition-colors hover:text-gray-900"
+          <div className="flex justify-between items-center">
+            <Checkbox
+              color="blue"
+              label={
+                <Typography
+                  variant="small"
+                  color="gray"
+                  className="flex items-center font-semibold"
                 >
-                  &nbsp;Terms and Conditions
-                </a>
-              </Typography>
-            }
-            containerProps={{ className: "-ml-2.5" }}
-          />
-          <Button className="mt-6" color="blue" fullWidth>
+                  &nbsp;Remember me
+                </Typography>
+              }
+              containerProps={{ className: "-ml-2.5" }}
+            />
+            <Typography variant="small" color="blue" className="font-semibold">
+              <Link to="/">Forgot Password?</Link>
+            </Typography>
+          </div>
+          <Button className="mt-1" color="blue" fullWidth>
             Login
           </Button>
-          <Typography color="gray" className="mt-4 text-center font-normal">
+          <Typography variant="small" color="gray" className="mt-4 text-center font-semibold">
             Don&apos;t have an account?{" "}
-            <a href="#" className="font-bold text-blue-500">
+            <Link to="/signup" className="font-bold text-blue-500">
               Sign Up
-            </a>
+            </Link>
           </Typography>
         </form>
       </Card>
