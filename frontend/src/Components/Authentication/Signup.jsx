@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Card,
   Input,
@@ -16,17 +17,53 @@ const Login = () => {
     backgroundPosition: "center",
   };
 
+  const [signupDetails, setSignupDetails] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const fillDetails = (e) => {
+    setSignupDetails({ ...signupDetails, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(signupDetails);
+  };
   return (
     <div style={divStyle} className="flex justify-center items-center h-screen">
-      <Card className="p-3 shadow-lg shadow-blue-500 opacity-80">
+      <Card className="p-3 shadow-lg shadow-blue-500">
         <Typography variant="h3" className=" text-center" color="blue-gray">
           Signup
         </Typography>
-        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+        <form
+          onSubmit={handleSubmit}
+          className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
+        >
           <div className="mb-1 flex flex-col gap-6">
-            <Input size="lg" type="name" label="Name" color="blue" />
-            <Input size="lg" type="email" label="Email" color="blue" />
-            <Input color="blue" type="password" size="lg" label="Password" />
+            <Input
+              onChange={fillDetails}
+              name="name"
+              size="lg"
+              type="text"
+              label="Name"
+              color="blue"
+            />
+            <Input
+              onChange={fillDetails}
+              name="email"
+              size="lg"
+              type="email"
+              label="Email"
+              color="blue"
+            />
+            <Input
+              onChange={fillDetails}
+              name="password"
+              color="blue"
+              type="password"
+              size="lg"
+              label="Password"
+            />
           </div>
           <Checkbox
             color="blue"
@@ -47,7 +84,7 @@ const Login = () => {
             }
             containerProps={{ className: "-ml-2.5" }}
           />
-          <Button className="mt-6" color="blue" fullWidth>
+          <Button type="submit" className="mt-6" color="blue" fullWidth>
             Signup
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
