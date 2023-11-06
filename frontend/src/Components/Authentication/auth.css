@@ -1,4 +1,17 @@
-.background {
-    background-image: url('background.jpg');
-    background-size: cover;
+.quizzo {
+    color: #FFF;
+    font-family: 'Noto Sans';
+    font-size: 96px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: normal;
+}
+
+.welcome {
+    color: #FFF;
+    font-family: 'Noto Sans';
+    font-size: 96px;
+    font-style: bold;
+    font-weight: 600;
+    line-height: normal;
 }
