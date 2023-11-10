@@ -6,7 +6,7 @@ import HomePage from "./Components/Homepage/HomePage";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 function App() {
   return (
-    <div>
+    <div style={{fontFamily:"Noto Sans"}}>
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
