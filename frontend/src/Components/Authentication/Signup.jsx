@@ -6,13 +6,13 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import backgroundImage from "./login_background.png";
 import axios from "axios";
 
 const Login = () => {
   // Import the image
-
+  const navigate = useNavigate();
   const divStyle = {
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: "cover",
@@ -28,10 +28,17 @@ const Login = () => {
     setSignupDetails({ ...signupDetails, [e.target.name]: e.target.value });
   };
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    let url = "http://192.168.29.250:3000/user/signup";
-    let res = await axios.post(url, signupDetails);
-    console.log(res.data);
+    try {
+      e.preventDefault();
+      let url = "http://192.168.29.250:3000/user/signup";
+      let res = await axios.post(url, signupDetails);
+      console.log(res.data);
+      if (res.data.success) {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div style={divStyle} className="md:flex justify-evenly h-screen">
@@ -50,7 +57,12 @@ const Login = () => {
         >
           Signup
         </Typography>
-        <span style={{ fontFamily: "Noto Sans" }} className="text-white font-medium">Just some details to get you in.!</span>
+        <span
+          style={{ fontFamily: "Noto Sans" }}
+          className="text-white font-medium"
+        >
+          Just some details to get you in.!
+        </span>
         <form
           onSubmit={handleSubmit}
           className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"

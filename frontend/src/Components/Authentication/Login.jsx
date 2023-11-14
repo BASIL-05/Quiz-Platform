@@ -6,9 +6,10 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import backgroundImage from "./login_background.png";
 import "./auth.css";
+import axios from "axios";
 const Login = () => {
   const divStyle = {
     backgroundImage: `url(${backgroundImage})`,
@@ -17,9 +18,21 @@ const Login = () => {
   };
 
   const [loginDetails, setLoginDetails] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(loginDetails);
+    try {
+      e.preventDefault();
+      let url = "http://192.168.29.250:3000/user/login";
+      let res = await axios.post(url, loginDetails);
+      console.log(res.data);
+      if (res.data.success) {
+        console.log("login Success");
+        navigate("/");
+      }
+      
+    } catch (error) {
+      console.error(error);
+    }
   };
   const fillDetails = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
@@ -42,7 +55,12 @@ const Login = () => {
         >
           Login
         </Typography>
-        <span style={{ fontFamily: "Noto Sans" }} className="text-white font-medium">Glad,you are back.!</span>
+        <span
+          style={{ fontFamily: "Noto Sans" }}
+          className="text-white font-medium"
+        >
+          Glad,you are back.!
+        </span>
         <form
           onSubmit={handleSubmit}
           className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
