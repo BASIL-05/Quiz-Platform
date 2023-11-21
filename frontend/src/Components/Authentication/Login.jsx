@@ -6,8 +6,10 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
-import backgroundImage from "./login_background.jpeg";
+import { Link, useNavigate } from "react-router-dom";
+import backgroundImage from "./login_background.png";
+import "./auth.css";
+import axios from "axios";
 const Login = () => {
   const divStyle = {
     backgroundImage: `url(${backgroundImage})`,
@@ -16,38 +18,75 @@ const Login = () => {
   };
 
   const [loginDetails, setLoginDetails] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(loginDetails);
+    try {
+      e.preventDefault();
+      let url = "http://192.168.29.250:3000/user/login";
+      let res = await axios.post(url, loginDetails);
+      console.log(res.data);
+      if (res.data.success) {
+        console.log("login Success");
+        navigate("/");
+      }
+      
+    } catch (error) {
+      console.error(error);
+    }
   };
   const fillDetails = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
   return (
-    <div style={divStyle} className="flex justify-center items-center h-screen">
-      <Card className="p-3 shadow-lg shadow-blue-500">
-        <Typography variant="h3" className=" text-center" color="blue-gray">
+    <div style={divStyle} className="md:flex justify-evenly h-screen">
+      <div className="flex flex-col">
+        <span className="quizzo">QUIZZO</span>
+        <span className="welcome">Welcome Back .!</span>
+      </div>
+      <Card
+        variant="gradient"
+        color="transparent"
+        className="p-5 my-10 mx-4 h-fit shadow-lg border-2 border-[#AFAFAF] shadow-black backdrop-blur-xl"
+      >
+        <Typography
+          style={{ fontFamily: "Noto Sans" }}
+          variant="h3"
+          color="white"
+        >
           Login
         </Typography>
+        <span
+          style={{ fontFamily: "Noto Sans" }}
+          className="text-white font-medium"
+        >
+          Glad,you are back.!
+        </span>
         <form
           onSubmit={handleSubmit}
           className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
         >
-          <div className="mb-1 flex flex-col gap-6">
+          <div
+            style={{ fontFamily: "Noto Sans" }}
+            className="mb-1 flex flex-col gap-6"
+          >
             <Input
+              style={{ fontFamily: "Noto Sans" }}
+              className="focus:bg-transparent"
               onChange={fillDetails}
               name="email"
-              size="lg"
+              size="md"
               type="email"
               label="Email"
-              color="blue"
+              color="white"
             />
             <Input
+              style={{ fontFamily: "Noto Sans" }}
+              className="focus:bg-transparent"
               onChange={fillDetails}
               name="password"
-              color="blue"
+              color="white"
               type="password"
-              size="lg"
+              size="md"
               label="Password"
             />
           </div>
@@ -56,8 +95,9 @@ const Login = () => {
               color="blue"
               label={
                 <Typography
+                  style={{ fontFamily: "Noto Sans" }}
                   variant="small"
-                  color="gray"
+                  color="white"
                   className="flex items-center font-semibold"
                 >
                   &nbsp;Remember me
@@ -65,24 +105,43 @@ const Login = () => {
               }
               containerProps={{ className: "-ml-2.5" }}
             />
-            <Typography variant="small" color="blue" className="font-semibold">
-              <Link to="/">Forgot Password?</Link>
+            <Typography
+              style={{ fontFamily: "Noto Sans" }}
+              variant="small"
+              color="white"
+              className="font-semibold"
+            >
+              <Link to="/forgotpass">Forgot Password?</Link>
             </Typography>
           </div>
-          <Button type="submit" className="mt-1" color="blue" fullWidth>
+          <Button
+            style={{ fontFamily: "Noto Sans" }}
+            type="submit"
+            className="mt-1 bg-gradient-to-r from-amber-500 to-[#885200]"
+            fullWidth
+          >
             Login
           </Button>
           <Typography
+            style={{ fontFamily: "Noto Sans" }}
             variant="small"
-            color="gray"
+            color="white"
             className="mt-4 text-center font-semibold"
           >
             Don&apos;t have an account?{" "}
-            <Link to="/signup" className="font-bold text-blue-500">
+            <Link to="/signup" className="font-bold">
               Sign Up
             </Link>
           </Typography>
         </form>
+        <div
+          style={{ fontFamily: "Noto Sans" }}
+          className="flex justify-evenly mt-16 text-white font-bold"
+        >
+          <span>Terms & Conditions</span>
+          <span>Support</span>
+          <span>Customer Care</span>
+        </div>
       </Card>
     </div>
   );
